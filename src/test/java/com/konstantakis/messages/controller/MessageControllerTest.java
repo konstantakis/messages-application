@@ -41,14 +41,14 @@ class MessageControllerTest {
                 "    {\n" +
                 "        \"id\": 123,\n" +
                 "        \"content\": \"test-message\",\n" +
-                "        \"createdOn\": \"24-06-2022\",\n" +
-                "        \"changedOn\": \"25-06-2022\"\n" +
+                "        \"createdOn\": \"2022-06-24\",\n" +
+                "        \"changedOn\": \"2022-06-25\"\n" +
                 "    },\n" +
                 "    {\n" +
                 "        \"id\": 321,\n" +
                 "        \"content\": \"test-message-2\",\n" +
-                "        \"createdOn\": \"25-06-2022\",\n" +
-                "        \"changedOn\": \"26-06-2022\"\n" +
+                "        \"createdOn\": \"2022-06-25\",\n" +
+                "        \"changedOn\": \"2022-06-26\"\n" +
                 "    }\n" +
                 "]";
         List<Message> messageList = List.of(

@@ -7,6 +7,7 @@ import com.konstantakis.messages.service.mapstruck.MessagesMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,10 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message createMessage(Message message) {
-        return null;
+        MessageDTO messageDTO = messagesMapper.messageToMessageDTO(message);
+        messageDTO.setId(null);
+        messageDTO.setCreatedOn(messageDTO.getCreatedOn() == null ? LocalDate.now() : messageDTO.getCreatedOn());
+        return messagesMapper.messageDTOToMessage(messageRepository.save(messageDTO));
     }
 
     @Override
