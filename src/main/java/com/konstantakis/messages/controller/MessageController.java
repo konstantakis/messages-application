@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -20,31 +21,32 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @AllArgsConstructor
+@RequestMapping("/messages")
 public class MessageController {
 
     private MessageService messageService;
 
-    @PostMapping("/messages")
+    @PostMapping()
     public Message postMessages() {
         return null;
     }
 
-    @GetMapping("/messages")
+    @GetMapping()
     public Message getMessages() {
         return null;
     }
 
-    @GetMapping("/messages/{id}")
+    @GetMapping("/{id}")
     public Message getMessage(@PathVariable("id") Integer id) {
         return null;
     }
 
-    @PutMapping("/messages/{id}")
+    @PutMapping("/{id}")
     public Message putMessage(@PathVariable("id") Integer id) {
         return null;
     }
 
-    @DeleteMapping("/messages/{id}")
+    @DeleteMapping("/{id}")
     public Message deleteMessage(@PathVariable("id") Integer id) {
         return null;
     }
