@@ -1,10 +1,12 @@
 package com.konstantakis.messages.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * TODO
@@ -13,10 +15,13 @@ import java.util.Date;
  */
 @Builder
 @Getter
+@EqualsAndHashCode
 public class Message {
     @Setter
     private Integer id;
     private String content;
-    private Date createdOn;
-    private Date changedOn;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate createdOn;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate changedOn;
 }

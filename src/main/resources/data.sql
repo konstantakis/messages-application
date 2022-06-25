@@ -7,7 +7,7 @@ INSERT INTO MESSAGES(
     DB_RECORD_CHANGED_ON
 ) VALUES(
     123,
-    'test-message2',
+    'test-message',
     NOW(),
     NOW(),
     NOW(),

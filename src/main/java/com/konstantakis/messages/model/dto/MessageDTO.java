@@ -1,7 +1,9 @@
 package com.konstantakis.messages.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * TODO
@@ -19,6 +21,8 @@ import java.util.Date;
  */
 @Builder
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="messages")
 public class MessageDTO {
@@ -32,14 +36,14 @@ public class MessageDTO {
     private String content;
 
     @Column
-    private Date createdOn;
+    private LocalDate createdOn;
 
     @Column
-    private Date changedOn;
+    private LocalDate changedOn;
 
     @Column
-    private Timestamp dbRecordCreatedOn;
+    private LocalDateTime dbRecordCreatedOn;
 
     @Column
-    private Timestamp dbRecordChangedOn;
+    private LocalDateTime dbRecordChangedOn;
 }

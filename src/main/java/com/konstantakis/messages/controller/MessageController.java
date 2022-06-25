@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 /**
  * TODO
@@ -32,8 +34,8 @@ public class MessageController {
     }
 
     @GetMapping()
-    public Message getMessages() {
-        return null;
+    public List<Message> getMessages() {
+        return messageService.getAllMessages();
     }
 
     @GetMapping("/{id}")
