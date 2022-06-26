@@ -21,11 +21,7 @@ import java.util.List;
 
 
 /**
- * TODO
- * add
- *  javadoc
- *  implementation
- *  tests
+ * Message API controller
  */
 @RestController
 @AllArgsConstructor
@@ -34,7 +30,11 @@ public class MessageController {
 
     private MessageService messageService;
 
-
+    /**
+     * Post endpoint to create a new message
+     * @param message new message to create
+     * @return message that was created
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @Validated
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
@@ -42,21 +42,40 @@ public class MessageController {
         return messageService.createMessage(message);
     }
 
+    /**
+     * Get endpoint to retrieve all the existing messages
+     * @return message list of existing messages
+     */
     @GetMapping()
     public List<Message> getMessages() {
         return messageService.getAllMessages();
     }
 
+    /**
+     * Get endpoint to retrieve an existing message
+     * @param id of the message to retrieve
+     * @return the existing message with id
+     */
     @GetMapping("/{id}")
     public Message getMessage(@PathVariable("id") Integer id) {
         return null;
     }
 
+    /**
+     * Put endpoint to edit an existing message
+     * @param id of the message to edit
+     * @return the message that was edited
+     */
     @PutMapping("/{id}")
     public Message putMessage(@PathVariable("id") Integer id) {
         return null;
     }
 
+    /**
+     * Delete endpoint to remove an existing message
+     * @param id of the message to remove
+     * @return the message that was removed
+     */
     @DeleteMapping("/{id}")
     public Message deleteMessage(@PathVariable("id") Integer id) {
         return null;

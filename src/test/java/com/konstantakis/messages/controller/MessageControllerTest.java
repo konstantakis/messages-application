@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -137,7 +139,7 @@ class MessageControllerTest {
     @Test
     @DisplayName("SHOULD return 400 with error WHEN post message endpoint is called with missing content")
     void postMessages_badRequest_test() throws Exception {
-        // given-when
+        // given - when
         MockHttpServletResponse response = mockMvc.perform(post("/messages")
                         .content("{}")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -152,9 +154,10 @@ class MessageControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         ErrorResponse responseBody = mapper.readValue(response.getContentAsString(), ErrorResponse.class);
         assertNotNull(responseBody);
-        assertEquals("Bad Request", responseBody.getError());
+        assertEquals(HttpStatus.BAD_REQUEST.getReasonPhrase(), responseBody.getError());
         assertTrue(responseBody.getMessage().contains("Content can't be empty"));
         assertTrue(responseBody.getMessage().contains("Content can't be null"));
-        assertEquals("", responseBody.getTraceId());
+        assertNotNull(responseBody.getTraceId());
+        assertNotEquals("", responseBody.getTraceId());
     }
 }

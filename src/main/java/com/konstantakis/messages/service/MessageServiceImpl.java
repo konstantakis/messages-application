@@ -8,17 +8,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * TODO
- * add
- *  javadoc
- *  implementation
- *  tests
- */
+
 @Service
 @AllArgsConstructor
 public class MessageServiceImpl implements MessageService {
@@ -32,7 +25,6 @@ public class MessageServiceImpl implements MessageService {
         MessageDTO messageDTO = messagesMapper.messageToMessageDTO(message);
         messageDTO.setId(null);
         messageDTO.setCreatedOn(LocalDate.now());
-        messageDTO.setDbRecordCreatedOn(LocalDateTime.now());
         return messagesMapper.messageDTOToMessage(messageRepository.save(messageDTO));
     }
 

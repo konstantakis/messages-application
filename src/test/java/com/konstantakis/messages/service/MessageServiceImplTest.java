@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,15 +45,11 @@ class MessageServiceImplTest {
                         .content("test-message")
                         .createdOn(LocalDate.of(2022, 6, 24))
                         .changedOn(LocalDate.of(2022, 6, 25))
-                        .dbRecordChangedOn(LocalDateTime.of(2022, 6, 24, 9, 30))
-                        .dbRecordChangedOn(LocalDateTime.of(2022, 6, 25, 10, 40))
                         .build(),
                 MessageDTO.builder().id(321)
                         .content("test-message-2")
                         .createdOn(LocalDate.of(2022, 6, 25))
                         .changedOn(LocalDate.of(2022, 6, 26))
-                        .dbRecordChangedOn(LocalDateTime.of(2022, 6, 25, 11, 45))
-                        .dbRecordChangedOn(LocalDateTime.of(2022, 6, 26, 13, 58))
                         .build()
         );
         List<Message> expectedMessageList = List.of(
@@ -129,9 +124,7 @@ class MessageServiceImplTest {
         assertNull(repositoryInput.getId());
         assertEquals(mapperOutput.getContent(), repositoryInput.getContent());
         assertEquals(LocalDate.now(), repositoryInput.getCreatedOn());
-        assertNotNull(repositoryInput.getDbRecordCreatedOn());
         assertNull(repositoryInput.getChangedOn());
-        assertNull(repositoryInput.getDbRecordChangedOn());
 
         verify(messagesMapper).messageToMessageDTO(inputMessage);
         verify(messagesMapper).messageDTOToMessage(repositoryOutput);
