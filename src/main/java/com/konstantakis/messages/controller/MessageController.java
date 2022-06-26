@@ -46,7 +46,7 @@ public class MessageController {
      * Get endpoint to retrieve all the existing messages
      * @return message list of existing messages
      */
-    @GetMapping()
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Message> getMessages() {
         return messageService.getAllMessages();
     }
@@ -56,7 +56,7 @@ public class MessageController {
      * @param id of the message to retrieve
      * @return the existing message with id
      */
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Message getMessage(@PathVariable("id") Long id) {
         return messageService.getMessage(id);
     }
@@ -66,9 +66,9 @@ public class MessageController {
      * @param id of the message to edit
      * @return the message that was edited
      */
-    @PutMapping("/{id}")
-    public Message putMessage(@PathVariable("id") Integer id) {
-        return null;
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
+    public Message putMessage(@PathVariable("id") Long id, @Valid @RequestBody Message message) {
+        return messageService.updateMessage(id, message);
     }
 
     /**

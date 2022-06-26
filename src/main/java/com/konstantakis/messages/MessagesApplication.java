@@ -21,7 +21,7 @@ public class MessagesApplication {
 
 	@Bean
 	public CommandLineRunner demoData(MessageRepository repo) {
-		return args -> repo.save(MessageDTO.builder().content("hello").createdOn(LocalDate.now()).build());
+		return args -> repo.save(MessageDTO.builder().content("hello").createdOn(LocalDate.of(2020, 6, 24)).build());
 	}
 
 }

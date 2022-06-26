@@ -35,7 +35,7 @@ public interface MessageService {
      * @param message message to edit
      * @return message that was edited
      */
-    Message updateMessage(String id, Message message);
+    Message updateMessage(Long id, Message message);
 
     /**
      * Method to delete an existing message with specific id
