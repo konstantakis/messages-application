@@ -45,4 +45,25 @@ class MessagesMapperTest {
         assertEquals(input.getChangedOn(), output.getChangedOn());
     }
 
+    @Test
+    @DisplayName("SHOULD translate to MessageDTO object WHEN passing Message")
+    void messageToMessageDTO_test() {
+        // given
+        Message input = Message.builder().id(123)
+                .content("test-message")
+                .createdOn(LocalDate.of(2022, 6, 24))
+                .changedOn(LocalDate.of(2022, 6, 25))
+                .build();
+
+        // when
+        MessageDTO output = underTest.messageToMessageDTO(input);
+
+        // then
+        assertNotNull(output);
+        assertEquals(input.getId(), output.getId());
+        assertEquals(input.getContent(), output.getContent());
+        assertEquals(input.getCreatedOn(), output.getCreatedOn());
+        assertEquals(input.getChangedOn(), output.getChangedOn());
+    }
+
 }
