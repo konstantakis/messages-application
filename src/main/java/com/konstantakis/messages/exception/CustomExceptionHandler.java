@@ -35,7 +35,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
         return ResponseEntity.badRequest().body(
                 ErrorResponse.builder()
-                        .error("")
+                        .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
                         .message(ex.getBindingResult().getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(", ")))
                         .traceId("")
                         .build());

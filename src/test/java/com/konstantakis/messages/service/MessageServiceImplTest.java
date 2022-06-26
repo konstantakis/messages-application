@@ -7,6 +7,7 @@ import com.konstantakis.messages.service.mapstruck.MessagesMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,7 +18,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -76,6 +81,60 @@ class MessageServiceImplTest {
         assertEquals(2, actualMessageList.size());
         assertEquals(expectedMessageList.get(0), expectedMessageList.get(0));
         assertEquals(expectedMessageList.get(1), expectedMessageList.get(1));
+
+        verify(messageRepository).findAll();
+        verify(messagesMapper).messageDTOToMessage(messageDTOs.get(0));
+        verify(messagesMapper).messageDTOToMessage(messageDTOs.get(1));
+        verifyNoMoreInteractions(messageRepository);
+        verifyNoMoreInteractions(messagesMapper);
+
     }
 
+    @Test
+    @DisplayName("SHOULD set the createdOn fields, call the repository mapper layer and return list of messages WHEN repository and mapper is working properly")
+    void createMessage_happyFlow_test() {
+        // given
+        Message inputMessage = Message.builder()
+                .content("test-message")
+                .build();
+        MessageDTO mapperOutput = MessageDTO.builder()
+                .content("test-message")
+                .build();
+        MessageDTO repositoryOutput = MessageDTO.builder()
+                .content("test-message")
+                .createdOn(LocalDate.now())
+                .build();
+        Message expectedMessage = Message.builder()
+                .content("test-message")
+                .createdOn(LocalDate.now())
+                .build();
+
+
+        given(messagesMapper.messageToMessageDTO(inputMessage)).willReturn(mapperOutput);
+        given(messageRepository.save(any())).willReturn(repositoryOutput);
+        given(messagesMapper.messageDTOToMessage(repositoryOutput)).willReturn(expectedMessage);
+
+        // when
+        Message actualMessage = underTest.createMessage(inputMessage);
+
+        // then
+        assertNotNull(actualMessage);
+        assertEquals(expectedMessage, actualMessage);
+
+        ArgumentCaptor<MessageDTO> messageDTOCaptor = ArgumentCaptor.forClass(MessageDTO.class);
+        verify(messageRepository).save(messageDTOCaptor.capture());
+        verifyNoMoreInteractions(messageRepository);
+        MessageDTO repositoryInput = messageDTOCaptor.getValue();
+        assertNotNull(repositoryInput);
+        assertNull(repositoryInput.getId());
+        assertEquals(mapperOutput.getContent(), repositoryInput.getContent());
+        assertEquals(LocalDate.now(), repositoryInput.getCreatedOn());
+        assertNotNull(repositoryInput.getDbRecordCreatedOn());
+        assertNull(repositoryInput.getChangedOn());
+        assertNull(repositoryInput.getDbRecordChangedOn());
+
+        verify(messagesMapper).messageToMessageDTO(inputMessage);
+        verify(messagesMapper).messageDTOToMessage(repositoryOutput);
+        verifyNoMoreInteractions(messagesMapper);
+    }
 }

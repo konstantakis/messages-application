@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -20,7 +21,7 @@ import java.time.LocalDate;
 @Builder
 @Getter
 @EqualsAndHashCode
-public class Message {
+public class Message implements Serializable {
     @Setter
     private Integer id;
 

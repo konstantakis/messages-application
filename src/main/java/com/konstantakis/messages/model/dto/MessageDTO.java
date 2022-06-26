@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -27,7 +28,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name="messages")
-public class MessageDTO {
+public class MessageDTO implements Serializable {
 
     @Id
     @Column
