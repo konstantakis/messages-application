@@ -4,7 +4,7 @@ INSERT INTO MESSAGES(
     CREATED_ON,
     CHANGED_ON
 ) VALUES(
-    123,
+    1,
     'test-message',
     NOW(),
     NOW()
