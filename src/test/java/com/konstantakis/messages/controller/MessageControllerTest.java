@@ -22,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -137,7 +138,7 @@ class MessageControllerTest {
     @Test
     @DisplayName("SHOULD return 400 with error WHEN post message endpoint is called with missing content")
     void postMessages_badRequest_test() throws Exception {
-        // given-when
+        // given - when
         MockHttpServletResponse response = mockMvc.perform(post("/messages")
                         .content("{}")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -155,6 +156,7 @@ class MessageControllerTest {
         assertEquals("Bad Request", responseBody.getError());
         assertTrue(responseBody.getMessage().contains("Content can't be empty"));
         assertTrue(responseBody.getMessage().contains("Content can't be null"));
-        assertEquals("", responseBody.getTraceId());
+        assertNotNull(responseBody.getTraceId());
+        assertNotEquals("", responseBody.getTraceId());
     }
 }

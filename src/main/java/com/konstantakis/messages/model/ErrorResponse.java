@@ -20,6 +20,5 @@ import java.io.Serializable;
 public class ErrorResponse implements Serializable {
     private String error;
     private String message;
-    // TODO add traceId implementation
     private String traceId;
 }

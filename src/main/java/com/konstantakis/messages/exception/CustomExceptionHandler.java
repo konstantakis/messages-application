@@ -1,7 +1,9 @@
 package com.konstantakis.messages.exception;
 
+import com.konstantakis.messages.constants.AppConstants;
 import com.konstantakis.messages.model.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,7 +39,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                 ErrorResponse.builder()
                         .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
                         .message(ex.getBindingResult().getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(", ")))
-                        .traceId("")
+                        .traceId(MDC.get(AppConstants.TRACE_ID_HEADER))
                         .build());
     }
 
@@ -50,7 +52,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                 ErrorResponse.builder()
                         .error(status.getReasonPhrase())
                         .message(ex.getMessage().split(":")[0])
-                        .traceId("")
+                        .traceId(MDC.get(AppConstants.TRACE_ID_HEADER))
                         .build());
     }
 
@@ -60,8 +62,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("Unexpected exception", ex);
         return ErrorResponse.builder()
                 .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-                .message("Something went wrong")
-                .traceId("")
+                .message(AppConstants.SOMETHING_WENT_WRONG)
+                .traceId(MDC.get(AppConstants.TRACE_ID_HEADER))
                 .build();
     }
 }
