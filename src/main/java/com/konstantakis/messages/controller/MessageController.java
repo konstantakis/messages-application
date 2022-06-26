@@ -76,8 +76,8 @@ public class MessageController {
      * @param id of the message to remove
      * @return the message that was removed
      */
-    @DeleteMapping("/{id}")
-    public Message deleteMessage(@PathVariable("id") Integer id) {
-        return null;
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Message deleteMessage(@PathVariable("id") Long id) {
+        return messageService.deleteMessage(id);
     }
 }

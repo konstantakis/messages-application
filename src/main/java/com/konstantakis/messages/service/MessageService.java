@@ -42,7 +42,7 @@ public interface MessageService {
      * @param id id of the message
      * @return message that was deleted
      */
-    Message deleteMessage(String id);
+    Message deleteMessage(Long id);
 
 
 }

@@ -55,7 +55,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message deleteMessage(String id) {
-        return null;
+    public Message deleteMessage(Long id) {
+        MessageDTO existingMessageDTO = messageRepository.findById(id).orElseThrow(() -> new MessageNotFoundException(id));
+        messageRepository.deleteById(id);
+        return messagesMapper.messageDTOToMessage(existingMessageDTO);
     }
 }
