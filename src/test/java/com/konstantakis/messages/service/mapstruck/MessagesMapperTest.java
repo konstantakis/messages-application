@@ -10,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,8 +29,6 @@ class MessagesMapperTest {
                 .content("test-message")
                 .createdOn(LocalDate.of(2022, 6, 24))
                 .changedOn(LocalDate.of(2022, 6, 25))
-                .dbRecordChangedOn(LocalDateTime.of(2022, 6, 24, 9, 30))
-                .dbRecordChangedOn(LocalDateTime.of(2022, 6, 25, 10, 40))
                 .build();
 
         // when

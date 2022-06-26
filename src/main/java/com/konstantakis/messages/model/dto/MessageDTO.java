@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * TODO
@@ -43,10 +42,4 @@ public class MessageDTO implements Serializable {
 
     @Column
     private LocalDate changedOn;
-
-    @Column
-    private LocalDateTime dbRecordCreatedOn;
-
-    @Column
-    private LocalDateTime dbRecordChangedOn;
 }
