@@ -1,11 +1,13 @@
 package com.konstantakis.messages.service;
 
+import com.konstantakis.messages.exception.MessageNotFoundException;
 import com.konstantakis.messages.model.Message;
 import com.konstantakis.messages.model.dto.MessageDTO;
 import com.konstantakis.messages.repository.MessageRepository;
 import com.konstantakis.messages.service.mapstruck.MessagesMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class MessageServiceImpl implements MessageService {
 
     private MessageRepository messageRepository;
@@ -37,8 +40,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message getMessage(String id) {
-        return null;
+    public Message getMessage(Long id) {
+        MessageDTO messageDTO = messageRepository.findById(id).orElseThrow(() -> new MessageNotFoundException(id));
+        return messagesMapper.messageDTOToMessage(messageDTO);
     }
 
     @Override

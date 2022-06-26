@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class Message implements Serializable {
     @Setter
-    private Integer id;
+    private Long id;
 
     @NotNull(message = "Content can't be null")
     @NotBlank(message = "Content can't be empty")

@@ -25,6 +25,17 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler({MessageNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleMessageNotFoundException(MessageNotFoundException ex) {
+        log.error(ex.getMessage(), ex);
+        return ResponseEntity.status(404).body(
+                ErrorResponse.builder()
+                        .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                        .message(AppConstants.MESSAGE_NOT_FOUND)
+                        .traceId(MDC.get(AppConstants.TRACE_ID_HEADER))
+                        .build());
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {

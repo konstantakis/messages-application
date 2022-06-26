@@ -57,8 +57,8 @@ public class MessageController {
      * @return the existing message with id
      */
     @GetMapping("/{id}")
-    public Message getMessage(@PathVariable("id") Integer id) {
-        return null;
+    public Message getMessage(@PathVariable("id") Long id) {
+        return messageService.getMessage(id);
     }
 
     /**

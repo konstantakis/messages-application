@@ -41,24 +41,24 @@ class MessageServiceImplTest {
     void getAllMessages_happyFlow_test() {
         // given
         List<MessageDTO> messageDTOs = List.of(
-                MessageDTO.builder().id(123)
+                MessageDTO.builder().id(123L)
                         .content("test-message")
                         .createdOn(LocalDate.of(2022, 6, 24))
                         .changedOn(LocalDate.of(2022, 6, 25))
                         .build(),
-                MessageDTO.builder().id(321)
+                MessageDTO.builder().id(321L)
                         .content("test-message-2")
                         .createdOn(LocalDate.of(2022, 6, 25))
                         .changedOn(LocalDate.of(2022, 6, 26))
                         .build()
         );
         List<Message> expectedMessageList = List.of(
-                Message.builder().id(123)
+                Message.builder().id(123L)
                         .content("test-message")
                         .createdOn(LocalDate.of(2022, 6, 24))
                         .changedOn(LocalDate.of(2022, 6, 25))
                         .build(),
-                Message.builder().id(321)
+                Message.builder().id(321L)
                         .content("test-message-2")
                         .createdOn(LocalDate.of(2022, 6, 25))
                         .changedOn(LocalDate.of(2022, 6, 26))

@@ -70,13 +70,13 @@ class MessageControllerTest {
                 "]";
         List<Message> messageList = List.of(
                 Message.builder()
-                        .id(123)
+                        .id(123L)
                         .content("test-message")
                         .createdOn(LocalDate.of(2022, 6, 24))
                         .changedOn(LocalDate.of(2022, 6, 25))
                         .build(),
                 Message.builder()
-                        .id(321)
+                        .id(321L)
                         .content("test-message-2")
                         .createdOn(LocalDate.of(2022, 6, 25))
                         .changedOn(LocalDate.of(2022, 6, 26))
@@ -108,7 +108,7 @@ class MessageControllerTest {
                 "}";
 
         given(messageService.createMessage(any())).willReturn(Message.builder()
-                .id(1)
+                .id(1L)
                 .content("Hello World")
                 .createdOn(LocalDate.now())
                 .changedOn(null)

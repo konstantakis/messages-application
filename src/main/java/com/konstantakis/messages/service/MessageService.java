@@ -27,7 +27,7 @@ public interface MessageService {
      * @param id id of the message
      * @return message with the specific id
      */
-    Message getMessage(String id);
+    Message getMessage(Long id);
 
     /**
      * Method to update an existing message with specific id

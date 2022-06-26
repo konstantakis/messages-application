@@ -25,7 +25,8 @@ class MessagesMapperTest {
     @DisplayName("SHOULD translate to Message object WHEN passing MessageDTO")
     void messageDTOToMessage_test() {
         // given
-        MessageDTO input = MessageDTO.builder().id(123)
+        MessageDTO input = MessageDTO.builder()
+                .id(123L)
                 .content("test-message")
                 .createdOn(LocalDate.of(2022, 6, 24))
                 .changedOn(LocalDate.of(2022, 6, 25))
@@ -46,7 +47,7 @@ class MessagesMapperTest {
     @DisplayName("SHOULD translate to MessageDTO object WHEN passing Message")
     void messageToMessageDTO_test() {
         // given
-        Message input = Message.builder().id(123)
+        Message input = Message.builder().id(123L)
                 .content("test-message")
                 .createdOn(LocalDate.of(2022, 6, 24))
                 .changedOn(LocalDate.of(2022, 6, 25))
