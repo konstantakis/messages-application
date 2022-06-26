@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -153,7 +154,7 @@ class MessageControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         ErrorResponse responseBody = mapper.readValue(response.getContentAsString(), ErrorResponse.class);
         assertNotNull(responseBody);
-        assertEquals("Bad Request", responseBody.getError());
+        assertEquals(HttpStatus.BAD_REQUEST.getReasonPhrase(), responseBody.getError());
         assertTrue(responseBody.getMessage().contains("Content can't be empty"));
         assertTrue(responseBody.getMessage().contains("Content can't be null"));
         assertNotNull(responseBody.getTraceId());
