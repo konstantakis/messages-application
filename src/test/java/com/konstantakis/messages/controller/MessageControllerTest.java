@@ -3,6 +3,8 @@ package com.konstantakis.messages.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konstantakis.messages.model.ErrorResponse;
 import com.konstantakis.messages.model.Message;
+import com.konstantakis.messages.model.MessageRequestBody;
+import com.konstantakis.messages.repository.MessageRepository;
 import com.konstantakis.messages.service.MessageService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -43,6 +44,10 @@ class MessageControllerTest {
 
     @MockBean
     MessageService messageService;
+
+
+    @MockBean
+    MessageRepository messageRepository;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -125,15 +130,12 @@ class MessageControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().json(expectedResponse));
 
-        ArgumentCaptor<Message> messageCaptor = ArgumentCaptor.forClass(Message.class);
+        ArgumentCaptor<MessageRequestBody> messageCaptor = ArgumentCaptor.forClass(MessageRequestBody.class);
         verify(messageService).createMessage(messageCaptor.capture());
         verifyNoMoreInteractions(messageService);
-        Message actualRequestBody = messageCaptor.getValue();
+        MessageRequestBody actualRequestBody = messageCaptor.getValue();
         assertNotNull(actualRequestBody);
-        assertNull(actualRequestBody.getId());
         assertEquals("Hello World", actualRequestBody.getContent());
-        assertNull(actualRequestBody.getCreatedOn());
-        assertNull(actualRequestBody.getChangedOn());
     }
 
     @Test
@@ -149,7 +151,6 @@ class MessageControllerTest {
 
 
         // then
-        assertNotNull(response.getStatus());
         assertEquals(400, response.getStatus());
         ObjectMapper mapper = new ObjectMapper();
         ErrorResponse responseBody = mapper.readValue(response.getContentAsString(), ErrorResponse.class);

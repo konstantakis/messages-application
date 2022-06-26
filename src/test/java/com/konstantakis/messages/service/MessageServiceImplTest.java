@@ -1,6 +1,7 @@
 package com.konstantakis.messages.service;
 
 import com.konstantakis.messages.model.Message;
+import com.konstantakis.messages.model.MessageRequestBody;
 import com.konstantakis.messages.model.dto.MessageDTO;
 import com.konstantakis.messages.repository.MessageRepository;
 import com.konstantakis.messages.service.mapstruck.MessagesMapper;
@@ -89,7 +90,7 @@ class MessageServiceImplTest {
     @DisplayName("SHOULD set the createdOn fields, call the repository mapper layer and return list of messages WHEN repository and mapper is working properly")
     void createMessage_happyFlow_test() {
         // given
-        Message inputMessage = Message.builder()
+        MessageRequestBody inputMessage = MessageRequestBody.builder()
                 .content("test-message")
                 .build();
         MessageDTO mapperOutput = MessageDTO.builder()
@@ -105,7 +106,7 @@ class MessageServiceImplTest {
                 .build();
 
 
-        given(messagesMapper.messageToMessageDTO(inputMessage)).willReturn(mapperOutput);
+        given(messagesMapper.messageRequestBodyToMessageDTO(inputMessage)).willReturn(mapperOutput);
         given(messageRepository.save(any())).willReturn(repositoryOutput);
         given(messagesMapper.messageDTOToMessage(repositoryOutput)).willReturn(expectedMessage);
 
@@ -126,7 +127,7 @@ class MessageServiceImplTest {
         assertEquals(LocalDate.now(), repositoryInput.getCreatedOn());
         assertNull(repositoryInput.getChangedOn());
 
-        verify(messagesMapper).messageToMessageDTO(inputMessage);
+        verify(messagesMapper).messageRequestBodyToMessageDTO(inputMessage);
         verify(messagesMapper).messageDTOToMessage(repositoryOutput);
         verifyNoMoreInteractions(messagesMapper);
     }

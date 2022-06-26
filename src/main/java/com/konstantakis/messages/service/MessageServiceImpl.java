@@ -2,6 +2,7 @@ package com.konstantakis.messages.service;
 
 import com.konstantakis.messages.exception.MessageNotFoundException;
 import com.konstantakis.messages.model.Message;
+import com.konstantakis.messages.model.MessageRequestBody;
 import com.konstantakis.messages.model.dto.MessageDTO;
 import com.konstantakis.messages.repository.MessageRepository;
 import com.konstantakis.messages.service.mapstruck.MessagesMapper;
@@ -24,8 +25,8 @@ public class MessageServiceImpl implements MessageService {
     private MessagesMapper messagesMapper;
 
     @Override
-    public Message createMessage(Message message) {
-        MessageDTO messageDTO = messagesMapper.messageToMessageDTO(message);
+    public Message createMessage(MessageRequestBody message) {
+        MessageDTO messageDTO = messagesMapper.messageRequestBodyToMessageDTO(message);
         messageDTO.setId(null);
         messageDTO.setCreatedOn(LocalDate.now());
         return messagesMapper.messageDTOToMessage(messageRepository.save(messageDTO));
@@ -46,9 +47,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message updateMessage(Long id, Message message) {
+    public Message updateMessage(Long id, MessageRequestBody message) {
         MessageDTO existingMessageDTO = messageRepository.findById(id).orElseThrow(() -> new MessageNotFoundException(id));
-        MessageDTO newMessageDTO = messagesMapper.messageToMessageDTO(message);
+        MessageDTO newMessageDTO = messagesMapper.messageRequestBodyToMessageDTO(message);
         existingMessageDTO.setContent(newMessageDTO.getContent());
         existingMessageDTO.setChangedOn(LocalDate.now());
         return messagesMapper.messageDTOToMessage(messageRepository.save(existingMessageDTO));

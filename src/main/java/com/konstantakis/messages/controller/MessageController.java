@@ -1,6 +1,7 @@
 package com.konstantakis.messages.controller;
 
 import com.konstantakis.messages.model.Message;
+import com.konstantakis.messages.model.MessageRequestBody;
 import com.konstantakis.messages.service.MessageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     @Validated
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
-    public Message postMessages(@Valid @RequestBody Message message) {
+    public Message postMessages(@Valid @RequestBody MessageRequestBody message) {
         return messageService.createMessage(message);
     }
 
@@ -67,7 +68,7 @@ public class MessageController {
      * @return the message that was edited
      */
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
-    public Message putMessage(@PathVariable("id") Long id, @Valid @RequestBody Message message) {
+    public Message putMessage(@PathVariable("id") Long id, @Valid @RequestBody MessageRequestBody message) {
         return messageService.updateMessage(id, message);
     }
 
