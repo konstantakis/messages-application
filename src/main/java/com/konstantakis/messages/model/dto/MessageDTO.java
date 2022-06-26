@@ -16,9 +16,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
- * TODO
- * add
- *  javadoc
+ * MessageDTO used on the repository layer
  */
 @Builder
 @Getter

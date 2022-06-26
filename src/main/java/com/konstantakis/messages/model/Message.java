@@ -15,8 +15,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
- * add
- *  javadoc
+ * Message object used on api and service layers
  */
 @Builder
 @Getter

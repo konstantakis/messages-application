@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
+/**
+ * Context interceptor to initialize the MDC and put trace-id into the context
+ */
 @Component
 public class ContextInitializeInterceptor implements HandlerInterceptor {
     @Override

@@ -11,13 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * TODO
- * add
- *  javadoc
- *  implementation
- *  tests
- */
+
 @Service
 @AllArgsConstructor
 public class MessageServiceImpl implements MessageService {

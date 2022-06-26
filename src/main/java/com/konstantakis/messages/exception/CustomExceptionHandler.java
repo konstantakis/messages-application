@@ -19,11 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.stream.Collectors;
 
 /**
- * TODO
- * add
- *  javadoc
- *  implementation
- *  tests
+ * Custom exception handler
  */
 @Slf4j
 @ControllerAdvice
