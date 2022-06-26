@@ -1,6 +1,7 @@
 package com.konstantakis.messages.service;
 
 import com.konstantakis.messages.model.Message;
+import com.konstantakis.messages.model.MessageRequestBody;
 import com.konstantakis.messages.model.dto.MessageDTO;
 import com.konstantakis.messages.repository.MessageRepository;
 import com.konstantakis.messages.service.mapstruck.MessagesMapper;
@@ -41,24 +42,24 @@ class MessageServiceImplTest {
     void getAllMessages_happyFlow_test() {
         // given
         List<MessageDTO> messageDTOs = List.of(
-                MessageDTO.builder().id(123)
+                MessageDTO.builder().id(123L)
                         .content("test-message")
                         .createdOn(LocalDate.of(2022, 6, 24))
                         .changedOn(LocalDate.of(2022, 6, 25))
                         .build(),
-                MessageDTO.builder().id(321)
+                MessageDTO.builder().id(321L)
                         .content("test-message-2")
                         .createdOn(LocalDate.of(2022, 6, 25))
                         .changedOn(LocalDate.of(2022, 6, 26))
                         .build()
         );
         List<Message> expectedMessageList = List.of(
-                Message.builder().id(123)
+                Message.builder().id(123L)
                         .content("test-message")
                         .createdOn(LocalDate.of(2022, 6, 24))
                         .changedOn(LocalDate.of(2022, 6, 25))
                         .build(),
-                Message.builder().id(321)
+                Message.builder().id(321L)
                         .content("test-message-2")
                         .createdOn(LocalDate.of(2022, 6, 25))
                         .changedOn(LocalDate.of(2022, 6, 26))
@@ -89,7 +90,7 @@ class MessageServiceImplTest {
     @DisplayName("SHOULD set the createdOn fields, call the repository mapper layer and return list of messages WHEN repository and mapper is working properly")
     void createMessage_happyFlow_test() {
         // given
-        Message inputMessage = Message.builder()
+        MessageRequestBody inputMessage = MessageRequestBody.builder()
                 .content("test-message")
                 .build();
         MessageDTO mapperOutput = MessageDTO.builder()
@@ -105,7 +106,7 @@ class MessageServiceImplTest {
                 .build();
 
 
-        given(messagesMapper.messageToMessageDTO(inputMessage)).willReturn(mapperOutput);
+        given(messagesMapper.messageRequestBodyToMessageDTO(inputMessage)).willReturn(mapperOutput);
         given(messageRepository.save(any())).willReturn(repositoryOutput);
         given(messagesMapper.messageDTOToMessage(repositoryOutput)).willReturn(expectedMessage);
 
@@ -126,7 +127,7 @@ class MessageServiceImplTest {
         assertEquals(LocalDate.now(), repositoryInput.getCreatedOn());
         assertNull(repositoryInput.getChangedOn());
 
-        verify(messagesMapper).messageToMessageDTO(inputMessage);
+        verify(messagesMapper).messageRequestBodyToMessageDTO(inputMessage);
         verify(messagesMapper).messageDTOToMessage(repositoryOutput);
         verifyNoMoreInteractions(messagesMapper);
     }

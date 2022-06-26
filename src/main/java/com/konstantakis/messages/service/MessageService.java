@@ -1,6 +1,7 @@
 package com.konstantakis.messages.service;
 
 import com.konstantakis.messages.model.Message;
+import com.konstantakis.messages.model.MessageRequestBody;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface MessageService {
      * @param message message to create
      * @return message that was created
      */
-    Message createMessage(Message message);
+    Message createMessage(MessageRequestBody message);
 
     /**
      * Method to return all the existing messages
@@ -27,7 +28,7 @@ public interface MessageService {
      * @param id id of the message
      * @return message with the specific id
      */
-    Message getMessage(String id);
+    Message getMessage(Long id);
 
     /**
      * Method to update an existing message with specific id
@@ -35,14 +36,14 @@ public interface MessageService {
      * @param message message to edit
      * @return message that was edited
      */
-    Message updateMessage(String id, Message message);
+    Message updateMessage(Long id, MessageRequestBody message);
 
     /**
      * Method to delete an existing message with specific id
      * @param id id of the message
      * @return message that was deleted
      */
-    Message deleteMessage(String id);
+    Message deleteMessage(Long id);
 
 
 }

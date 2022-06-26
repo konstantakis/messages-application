@@ -1,6 +1,7 @@
 package com.konstantakis.messages.service.mapstruck;
 
 import com.konstantakis.messages.model.Message;
+import com.konstantakis.messages.model.MessageRequestBody;
 import com.konstantakis.messages.model.dto.MessageDTO;
 import org.mapstruct.Mapper;
 
@@ -21,5 +22,5 @@ public interface MessagesMapper {
      * @param message message
      * @return messageDTO
      */
-    MessageDTO messageToMessageDTO(Message message);
+    MessageDTO messageRequestBodyToMessageDTO(MessageRequestBody message);
 }

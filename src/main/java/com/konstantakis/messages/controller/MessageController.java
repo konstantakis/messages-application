@@ -1,6 +1,7 @@
 package com.konstantakis.messages.controller;
 
 import com.konstantakis.messages.model.Message;
+import com.konstantakis.messages.model.MessageRequestBody;
 import com.konstantakis.messages.service.MessageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     @Validated
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
-    public Message postMessages(@Valid @RequestBody Message message) {
+    public Message postMessages(@Valid @RequestBody MessageRequestBody message) {
         return messageService.createMessage(message);
     }
 
@@ -46,7 +47,7 @@ public class MessageController {
      * Get endpoint to retrieve all the existing messages
      * @return message list of existing messages
      */
-    @GetMapping()
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Message> getMessages() {
         return messageService.getAllMessages();
     }
@@ -56,9 +57,9 @@ public class MessageController {
      * @param id of the message to retrieve
      * @return the existing message with id
      */
-    @GetMapping("/{id}")
-    public Message getMessage(@PathVariable("id") Integer id) {
-        return null;
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Message getMessage(@PathVariable("id") Long id) {
+        return messageService.getMessage(id);
     }
 
     /**
@@ -66,9 +67,9 @@ public class MessageController {
      * @param id of the message to edit
      * @return the message that was edited
      */
-    @PutMapping("/{id}")
-    public Message putMessage(@PathVariable("id") Integer id) {
-        return null;
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
+    public Message putMessage(@PathVariable("id") Long id, @Valid @RequestBody MessageRequestBody message) {
+        return messageService.updateMessage(id, message);
     }
 
     /**
@@ -76,8 +77,8 @@ public class MessageController {
      * @param id of the message to remove
      * @return the message that was removed
      */
-    @DeleteMapping("/{id}")
-    public Message deleteMessage(@PathVariable("id") Integer id) {
-        return null;
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Message deleteMessage(@PathVariable("id") Long id) {
+        return messageService.deleteMessage(id);
     }
 }
